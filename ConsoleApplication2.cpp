@@ -178,6 +178,7 @@ public:
 	      m1.r[i][j]=this->r[j][i];
 	  return m1;
 	}
+
     class iterator
     {
     private:
@@ -191,24 +192,9 @@ public:
 		 stroka=b;
 		 stolbec=c;
 	 }
-	 iterator begin()
-	 {
-		 return iterator(this, 0, 0);
-	 }
-	 iterator end()
-	 {
-		 return iterator(this, m->n, m->m);
-	 }
-	 bool operator == (iterator i)
-	 {
-		 if(m == i.m && stroka == i.stroka && stolbec == i.stolbec)
-		   return true;
-		 else
-	       return false;
-	 }
 	 iterator & operator++()
 	 {
-		 if(this == this->end())
+		 if(stroka == m->n && stolbec == m->m)
 			 throw "operation can not be performed";
 		 if(stolbec != m->m)
 		   stolbec++;
@@ -218,6 +204,18 @@ public:
 			 stolbec=0;
 		 }
 		 return this;
+	 }
+	 iterator & operator--()
+	 {
+		 if(stroka == 0 && stolbec == 0)
+			 throw "operation can not be performed";
+		 if(stolbec != 0)
+		   stolbec--;
+		 else
+		 {
+			 stroka--;
+			 stolbec=m->m;
+		 }
 	 }
 	 t operator*()
 	 {
